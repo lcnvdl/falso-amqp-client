@@ -23,8 +23,8 @@ class Communication {
     }
 
     sendAndWait(cmd, content) {
-        const id = uuid();
         return new Promise((resolve, reject) => {
+            const id = uuid();
             const packageToSend = Protocol.prepare(cmd, content, id);
 
             this.waiters[id] = {
