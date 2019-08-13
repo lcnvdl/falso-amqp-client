@@ -1,4 +1,4 @@
-const SocketClientLayer = require("./sockets/client-ws.layer");
+const SocketClientLayer = require("./sockets/client-io.layer");
 const Connection = require("./amqp/connection");
 
 module.exports = async (url, callback, settings) => {

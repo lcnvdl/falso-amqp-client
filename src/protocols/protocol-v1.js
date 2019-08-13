@@ -24,7 +24,7 @@ class ProtocolV1 {
             };
         }
 
-        throw new Error("Invalid package");
+        throw new Error("Invalid package " + cmd + " " + msg);
     }
 
     /**

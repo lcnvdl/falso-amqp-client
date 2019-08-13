@@ -17,12 +17,14 @@ amqp("ws://localhost:8789", function (err, connection) {
         channel.assertExchange("testing", "fanout");
         channel.assertQueue("testing-q1");
         channel.assertQueue("testing-q2");
+        channel.bindQueue("testing-q1", "testing", "");
+        channel.bindQueue("testing-q2", "testing", "");
 
-        console.log("Sending message");
+        console.log("Sending message \"hola mundo!\"");
         channel.publish("testing", "", Buffer.from("hola mundo!"));
 
         setInterval(() => {
-            console.log("Sending message");
+            console.log("Sending message \"hola mundo!\"");
             channel.publish("testing", "", Buffer.from("hola mundo!"));
         }, 10000);
     });

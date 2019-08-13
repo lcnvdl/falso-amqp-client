@@ -17,6 +17,8 @@ amqp("ws://localhost:8789", function (err, connection) {
         channel.assertExchange("testing", "fanout");
         channel.assertQueue("testing-q1");
         channel.assertQueue("testing-q2");
+        channel.bindQueue("testing-q1", "testing", "");
+        channel.bindQueue("testing-q2", "testing", "");
 
         channel.consume("testing-q1", msg => {
             console.log("Queue 1", msg.content);
