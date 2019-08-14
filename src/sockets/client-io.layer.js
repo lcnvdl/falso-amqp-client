@@ -16,9 +16,12 @@ class ClientSocketIOLayer extends SocketClientLayer {
     connect(url) {
         let p = new Promise((resolve, reject) => {
             let socket = new connectToServer(url);
-            this._attach(socket);
-            this.triggerOnConnect(socket);
-            resolve();
+
+            socket.once("connect", () => {
+                this._attach(socket);
+                this.triggerOnConnect(socket);
+                resolve();
+            });
         });
 
         return p;

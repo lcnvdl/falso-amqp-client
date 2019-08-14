@@ -35,6 +35,7 @@ class ClientWSLayer extends SocketClientLayer {
             if (timeout !== 0) {
                 setTimeout(() => {
                     if (!finished) {
+                        finished = true;
                         reject("Timeout");
                     }
                 }, timeout);
