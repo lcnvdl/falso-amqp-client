@@ -1,1 +1,3 @@
-module.exports = require("./src/connect");
+module.exports = {
+    connect: require("./src/connect")
+};

@@ -9,7 +9,7 @@ module.exports = async (url, callback, settings) => {
 
     const client = new SocketClientLayer();
 
-    client.connect(url, timeout).then(() => {
+    await client.connect(url, timeout).then(() => {
         const connection = new Connection(client);
         callback(null, connection);
     }, err => {
