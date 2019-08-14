@@ -22,6 +22,11 @@ class Communication {
         });
     }
 
+    send(cmd, content) {
+        const packageToSend = Protocol.prepare(cmd, content);
+        this.socket.send(packageToSend);
+    }
+
     sendAndWait(cmd, content) {
         return new Promise((resolve, reject) => {
             const id = uuid();

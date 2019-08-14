@@ -11,6 +11,10 @@ class Channel {
 
         let isRecovering = false;
 
+        this.communication.socket.onReconnect(() => {
+            this.communication.send("ping", {});
+        });
+
         this.communication.socket.onMessage(msg => {
             const { cmd, data } = Protocol.parse(msg);
 

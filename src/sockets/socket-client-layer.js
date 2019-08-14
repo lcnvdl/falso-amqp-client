@@ -51,6 +51,14 @@ class SocketClientLayer {
         this.events.on("connect", callback);
     }
 
+    triggerOnReconnect(socket) {
+        this.events.emit("reconnect", socket);
+    }
+
+    onReconnect(callback) {
+        this.events.on("reconnect", callback);
+    }
+
     triggerOnClose() {
         this.events.emit("close", this);
     }

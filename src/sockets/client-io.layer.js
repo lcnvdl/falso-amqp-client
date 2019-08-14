@@ -44,6 +44,10 @@ class ClientSocketIOLayer extends SocketClientLayer {
             this.triggerOnConnect(this.socket);
         });
 
+        socket.on("reconnect", () => {
+            this.triggerOnReconnect(this.socket);
+        });
+
         socket.on('message', msg => {
             if (msg) {
                 this.triggerOnMessage(msg);
