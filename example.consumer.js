@@ -1,6 +1,6 @@
 const amqp = require("./index");
 
-amqp("ws://localhost:5682", function (err, connection) {
+amqp.connect("ws://localhost:5682", function (err, connection) {
     if (err) {
         return console.error(err);
     }
