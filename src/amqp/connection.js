@@ -10,6 +10,10 @@ class Connection {
         await this.communication.sendAndWait("new-channel", {});
         return new Channel(this.communication);
     }
+
+    close() {
+        this.communication.close();
+    }
 }
 
 module.exports = Connection;

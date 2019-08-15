@@ -44,9 +44,9 @@ class Channel {
 
     async assertQueue(name, settings) {
         settings = settings || {};
-        await this.communication.sendAndWait("assert-queue", { name, settings });
+        const { data: status } = await this.communication.sendAndWait("assert-queue", { name, settings });
         this._history.queueAssertions.push({ name, settings });
-        return { queue: name };
+        return status;
     }
 
     async assertExchange(name, type, settings) {

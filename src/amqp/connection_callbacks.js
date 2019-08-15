@@ -12,6 +12,10 @@ class Connection {
             callback && callback(err);
         });
     }
+
+    close() {
+        this._proxy.close();
+    }
 }
 
 module.exports = Connection;
