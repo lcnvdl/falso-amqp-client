@@ -45,7 +45,7 @@ class Channel {
     async assertQueue(name, settings) {
         settings = settings || {};
         const { data: status } = await this.communication.sendAndWait("assert-queue", { name, settings });
-        this._history.queueAssertions.push({ name, settings });
+        this._history.queueAssertions.push({ name: status.queue, settings });
         return status;
     }
 
