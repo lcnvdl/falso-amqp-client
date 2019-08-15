@@ -1,4 +1,4 @@
-const amqp = require("./index");
+const amqp = require("./callbacks_api");
 
 amqp.connect("ws://localhost:5682", function (err, connection) {
     if (err) {

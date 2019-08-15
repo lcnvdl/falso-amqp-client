@@ -46,17 +46,25 @@ class Channel {
         settings = settings || {};
         await this.communication.sendAndWait("assert-queue", { name, settings });
         this._history.queueAssertions.push({ name, settings });
+        return { queue: name };
     }
 
     async assertExchange(name, type, settings) {
         settings = settings || {};
         await this.communication.sendAndWait("assert-exchange", { name, type, settings });
         this._history.exchangeAssertions.push({ name, type, settings });
+        return { exchange: name };
     }
 
     async bindQueue(queueName, exchangeName, routingKey) {
         await this.communication.sendAndWait("bind-queue", { queueName, exchangeName, routingKey });
         this._history.bindings.push({ queueName, exchangeName, routingKey });
+    }
+
+    async sendToQueue(queueName, buffer, settings) {
+        settings = settings || {};
+        const content = buffer.toString();
+        await this.communication.sendAndWait("send-to-queue", { queueName, content, settings });
     }
 
     async publish(exchangeName, routingKey, buffer, settings) {

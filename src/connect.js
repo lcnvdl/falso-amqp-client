@@ -1,34 +1,19 @@
 const SocketClientLayer = require("./sockets/client-io.layer");
 const Connection = require("./amqp/connection");
+const { correctUrl } = require("./helpers/url.helper");
 
-module.exports = async (url, callback, settings) => {
+module.exports = async (url, customSettings) => {
+    if (typeof url !== 'string') {
+        url = url[0];
+    }
+    
     url = correctUrl(url);
-    settings = settings || {};
+    customSettings = customSettings || {};
 
-    const { timeout = 15000 } = settings;
+    const { timeout = 15000 } = customSettings;
 
     const client = new SocketClientLayer();
 
-    await client.connect(url, timeout).then(() => {
-        const connection = new Connection(client);
-        callback(null, connection);
-    }, err => {
-        callback(err, null);
-    });
+    await client.connect(url, timeout);
+    return new Connection(client);
 };
-
-function correctUrl(url) {
-    let finalUrl;
-    
-    if (url.indexOf("amqp://") === 0) {
-        finalUrl = "ws" + url.substr(url.indexOf(":"));
-    }
-    else if (url.indexOf("amqps://") === 0) {
-        finalUrl = "wss" + url.substr(url.indexOf(":"));
-    }
-    else {
-        finalUrl = url;
-    }
-
-    return finalUrl;
-}

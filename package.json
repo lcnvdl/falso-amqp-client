@@ -1,6 +1,6 @@
 {
   "name": "falso-amqp-client",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Falso AMQP Client",
   "main": "index.js",
   "directories": {

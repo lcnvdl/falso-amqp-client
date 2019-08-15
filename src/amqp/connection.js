@@ -6,13 +6,9 @@ class Connection {
         this.communication = new Communication(socketClient);
     }
 
-    createChannel(callback) {
-        this.communication.sendAndWait("new-channel", {}).then(() => {
-            const channel = new Channel(this.communication);
-            callback(null, channel);
-        }, err => {
-            callback(err);
-        });
+    async createChannel() {
+        await this.communication.sendAndWait("new-channel", {});
+        return new Channel(this.communication);
     }
 }
 
