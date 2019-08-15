@@ -1,10 +1,15 @@
+/** @typedef {import("./communication")} Communication*/
+
 const Protocol = require("../protocols/protocol-v1");
 const ChannelHistory = require("./channel-history");
 
 class Channel {
+    /**
+     * Constructor.
+     * @param {Communication} communication Communication.
+     */
     constructor(communication) {
         this.communication = communication;
-
         this._history = new ChannelHistory();
 
         this.consumeCallbacks = {};
