@@ -48,13 +48,13 @@ class ClientSocketIOLayer extends SocketClientLayer {
             this.triggerOnReconnect(this.socket);
         });
 
-        socket.on('message', msg => {
+        socket.on("message", msg => {
             if (msg) {
                 this.triggerOnMessage(msg);
             }
         });
 
-        socket.on('disconnect', () => {
+        socket.on("disconnect", () => {
             this.triggerOnClose();
         });
     }

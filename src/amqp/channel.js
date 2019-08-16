@@ -35,8 +35,12 @@ class Channel {
             }
             else if (cmd === "need-channel") {
                 if (!isRecovering) {
-                    console.info("Recovering channel...");
-                    this._recover().then(() => isRecovering = false, err => isRecovering = false);
+                    this._recover().then(() => {
+                        isRecovering = false;
+                    }, err => {
+                        isRecovering = false;
+                        console.warn("Error recovering channel", err);
+                    });
                 }
             }
         });
@@ -78,9 +82,16 @@ class Channel {
     }
 
     async consume(queueName, callback, settings) {
+
         settings = settings || {};
-        this.consumeCallbacks[queueName] = callback;
+
+        //  Patch: when you restore a "consume", I don't know why but the new callback doesn't work, so we keep the older one
+        if (typeof callback === "function") {
+            this.consumeCallbacks[queueName] = callback;
+        }
+
         await this.communication.sendAndWait("consume", { queueName, settings });
+
         this._history.consuming.push({ queueName, callback, settings });
     }
 
@@ -119,7 +130,7 @@ class Channel {
                 history.bindings[i].routingKey);
         }
 
-        for (let i = 0; i < history.queueAssertions.length; i++) {
+        for (let i = 0; i < history.consuming.length; i++) {
             await this.consume(
                 history.consuming[i].queueName,
                 history.consuming[i].callback,

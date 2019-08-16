@@ -62,11 +62,11 @@ class ClientWSLayer extends SocketClientLayer {
             this.triggerOnConnect(this.socket);
         });
 
-        socket.on('message', msg => {
+        socket.on("message", msg => {
             this.triggerOnMessage(msg);
         });
 
-        socket.on('close', () => {
+        socket.on("close", () => {
             this.triggerOnClose();
         });
     }

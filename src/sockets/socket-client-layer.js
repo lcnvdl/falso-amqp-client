@@ -4,6 +4,7 @@ class SocketClientLayer {
 
     constructor() {
         this.events = new EventEmitter();
+        this.events.setMaxListeners(0);
         this.connections = {};
     }
 
