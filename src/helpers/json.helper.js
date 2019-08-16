@@ -1,6 +1,6 @@
 const JsonHelper = {
     toB64: function(obj) {
-        if(typeof obj !== 'string') {
+        if(typeof obj !== "string") {
             obj = JSON.stringify(obj);
         }
         
@@ -8,7 +8,7 @@ const JsonHelper = {
     },
     
     fromB64: function(data) {
-        var json = JsonHelper.atob(data);
+        let json = JsonHelper.atob(data);
         return JSON.parse(json);
     },
     
@@ -17,17 +17,17 @@ const JsonHelper = {
     },
     
     fromB64ToBuffer: function(b64str) {
-        let buffer = Buffer.from(b64str, 'base64');
+        let buffer = Buffer.from(b64str, "base64");
         return buffer;
     },
 	
-	btoa: function(str) {
-		return Buffer.from(str, 'binary').toString('base64');
-	},
+    btoa: function(str) {
+        return Buffer.from(str, "binary").toString("base64");
+    },
 	
-	atob: function(str) {
-		return Buffer.from(str, 'base64').toString('binary');
-	}
+    atob: function(str) {
+        return Buffer.from(str, "base64").toString("binary");
+    }
 };
 
 module.exports = JsonHelper;

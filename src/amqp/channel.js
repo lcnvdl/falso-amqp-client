@@ -86,7 +86,7 @@ class Channel {
         settings = settings || {};
 
         //  Patch: when you restore a "consume", I don't know why but the new callback doesn't work, so we keep the older one
-        if (typeof callback === 'function') {
+        if (typeof callback === "function") {
             this.consumeCallbacks[queueName] = callback;
         }
 
