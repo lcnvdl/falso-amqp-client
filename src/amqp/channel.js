@@ -43,6 +43,13 @@ class Channel {
                     });
                 }
             }
+            else if (cmd === "error") {
+                console.error(data.message);
+                console.log("Details", data);
+            }
+            else if (cmd === "warning") {
+                console.warning(data.message);
+            }
         });
     }
 
@@ -93,6 +100,14 @@ class Channel {
         await this.communication.sendAndWait("consume", { queueName, settings });
 
         this._history.consuming.push({ queueName, callback, settings });
+    }
+
+    ack(message, allToUp) {
+        this.communication.send("ack", { id: message.id, allToUp });
+    }
+
+    nack(message, allToUp, requeue) {
+        this.communication.send("nack", { id: message.id, allToUp, requeue });
     }
 
     close() {
