@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/lcnvdl/falso-amqp-client#readme",
   "dependencies": {
-    "socket.io-client": "^2.2.0",
+    "socket.io-client": "^3.0.0",
     "uuid": "^3.3.2",
     "ws": "^7.1.2"
   },
