@@ -23,13 +23,13 @@
   },
   "homepage": "https://github.com/lcnvdl/falso-amqp-client#readme",
   "dependencies": {
-    "socket.io-client": "^2.2.0",
+    "socket.io-client": "^4.1.2",
     "uuid": "^3.3.2",
-    "ws": "^7.1.2"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "eslint": "^6.1.0",
-    "mocha": "^6.2.0"
+    "chai": "^4.3.4",
+    "eslint": "^7.27.0",
+    "mocha": "^8.4.0"
   }
 }
