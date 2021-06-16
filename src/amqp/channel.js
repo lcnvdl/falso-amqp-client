@@ -15,8 +15,21 @@ class Channel {
         this.consumeCallbacks = {};
 
         let isRecovering = false;
+        let isConnected = false;
+
+        this.communication.socket.onConnect(() => {
+            if (!isConnected) {
+                // console.log("Connected to the server");
+                isConnected = true;
+            }
+            else {
+                // console.log("Ping sent (reason: reconnection)");
+                this.communication.send("ping", {});
+            }
+        });
 
         this.communication.socket.onReconnect(() => {
+            // console.log("Ping sent (reason: reconnection)");
             this.communication.send("ping", {});
         });
 
@@ -35,6 +48,8 @@ class Channel {
             }
             else if (cmd === "need-channel") {
                 if (!isRecovering) {
+                    isRecovering = true;
+
                     this._recover().then(() => {
                         isRecovering = false;
                     }, err => {
@@ -89,7 +104,6 @@ class Channel {
     }
 
     async consume(queueName, callback, settings) {
-
         settings = settings || {};
 
         //  Patch: when you restore a "consume", I don't know why but the new callback doesn't work, so we keep the older one
@@ -115,9 +129,11 @@ class Channel {
     }
 
     async _recover() {
+        console.log("Recovering...");
+
         await this.communication.sendAndWait("new-channel", {});
 
-        let history = this._history.clone();
+        const history = this._history.clone();
 
         this._history.clear();
 
@@ -151,6 +167,8 @@ class Channel {
                 history.consuming[i].callback,
                 history.consuming[i].settings);
         }
+
+        console.log("Recovering completed");
     }
 }
 

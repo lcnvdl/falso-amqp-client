@@ -3,7 +3,6 @@ const SocketClientLayer = require("./socket-client-layer");
 const connectToServer = require("socket.io-client");
 
 class ClientSocketIOLayer extends SocketClientLayer {
-
     constructor() {
         super();
         this.socket = null;
@@ -37,7 +36,6 @@ class ClientSocketIOLayer extends SocketClientLayer {
     }
 
     _attach(socket) {
-
         this.socket = socket;
 
         socket.on("connect", () => {
