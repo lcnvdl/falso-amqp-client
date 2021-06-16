@@ -2,9 +2,14 @@ const Protocol = require("../protocols/protocol-v1");
 const uuid = require("uuid/v1");
 
 class Communication {
-    constructor(socketClient) {
+    /**
+     * @param {*} socketClient Socket client
+     * @param {*} [settings] Settings
+     */
+    constructor(socketClient, settings) {
         this.socket = socketClient;
         this.waiters = {};
+        this.timeout = (settings ? settings.timeout : null) || 30000;
 
         this.socket.onMessage(msg => {
             const { cmd, data, msgID } = Protocol.parse(msg);
@@ -33,7 +38,7 @@ class Communication {
             const packageToSend = Protocol.prepare(cmd, content, id);
 
             this.waiters[id] = {
-                timeout: 30000,
+                timeout: this.timeout,
                 timestamp: new Date(),
                 id: id,
                 resolve: data => resolve(data),
@@ -46,7 +51,7 @@ class Communication {
                     waiter.reject("Timeout");
                     delete this.waiters[id];
                 }
-            }, 30000);
+            }, this.timeout);
 
             this.socket.send(packageToSend);
         });

@@ -74,8 +74,8 @@ class Channel {
     }
 
     async assertQueue(name, settings) {
-        if (!name) {
-            throw new Error("Assert queue: Missing queue name");
+        if (typeof name !== "string") {
+            throw new Error("Assert queue: Missing queue name", name);
         }
 
         settings = settings || {};
@@ -98,7 +98,7 @@ class Channel {
     }
 
     async bindQueue(queueName, exchangeName, routingKey) {
-        if (!queueName) {
+        if (typeof queueName !== "string") {
             throw new Error("Bind queue: Missing queue name");
         }
 
@@ -107,7 +107,7 @@ class Channel {
     }
 
     async sendToQueue(queueName, buffer, settings) {
-        if (!queueName) {
+        if (typeof queueName !== "string") {
             throw new Error("Send to queue: Missing queue name");
         }
 
@@ -122,7 +122,7 @@ class Channel {
     }
 
     async consume(queueName, callback, settings) {
-        if (!queueName) {
+        if (typeof queueName !== "string") {
             throw new Error("Consume: Missing queue name");
         }
 
