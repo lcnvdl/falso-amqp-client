@@ -1,13 +1,18 @@
 {
   "name": "falso-amqp-client",
-  "version": "0.0.10",
+  "version": "0.0.12",
   "description": "Falso AMQP Client",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test:mocha": "mocha",
+    "cv": "npm run coverage",
+    "coverage": "nyc --reporter=text -x **/**/json.helper.js -x **/**/*.test.js mocha",
+    "tests": "mocha --watch --recursive",
+    "test": "nyc --reporter=lcov mocha",
+    "codecov": "codecov"
   },
   "repository": {
     "type": "git",
@@ -29,10 +34,12 @@
   },
   "devDependencies": {
     "chai": "^4.3.4",
+    "codecov": "^3.8.2",
     "eslint": "^7.27.0",
-    "mocha": "^8.4.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-chai-friendly": "^0.6.0",
-    "eslint-plugin-import": "^2.22.1"
+    "eslint-plugin-import": "^2.22.1",
+    "mocha": "^9.0.0",
+    "nyc": "^15.1.0"
   }
 }

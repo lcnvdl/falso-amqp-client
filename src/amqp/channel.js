@@ -74,6 +74,10 @@ class Channel {
     }
 
     async assertQueue(name, settings) {
+        if (!name) {
+            throw new Error("Assert queue: Missing queue name");
+        }
+
         settings = settings || {};
         const { data: status } = await this.communication.sendAndWait("assert-queue", { name, settings });
         this._history.queueAssertions.push({ name: status.queue, settings });
@@ -88,11 +92,19 @@ class Channel {
     }
 
     async bindQueue(queueName, exchangeName, routingKey) {
+        if (!queueName) {
+            throw new Error("Bind queue: Missing queue name");
+        }
+
         await this.communication.sendAndWait("bind-queue", { queueName, exchangeName, routingKey });
         this._history.bindings.push({ queueName, exchangeName, routingKey });
     }
 
     async sendToQueue(queueName, buffer, settings) {
+        if (!queueName) {
+            throw new Error("Send to queue: Missing queue name");
+        }
+
         settings = settings || {};
         const content = buffer.toString();
         await this.communication.sendAndWait("send-to-queue", { queueName, content, settings });
@@ -104,6 +116,10 @@ class Channel {
     }
 
     async consume(queueName, callback, settings) {
+        if (!queueName) {
+            throw new Error("Consume: Missing queue name");
+        }
+
         settings = settings || {};
 
         //  Patch: when you restore a "consume", I don't know why but the new callback doesn't work, so we keep the older one

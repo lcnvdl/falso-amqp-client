@@ -1,13 +1,13 @@
 const { expect } = require("chai");
-const Connection = require("../src/amqp/connection");
+const Communication = require("../src/amqp/communication");
 const socketStub = require("./Stubs/socket.stub");
 
-/** @type {Connection} */
+/** @type {Communication} */
 let instance = null;
 
-describe("Connection", () => {
+describe("Communication", () => {
     beforeEach(() => {
-        instance = new Connection(socketStub);
+        instance = new Communication(socketStub);
     });
 
     describe("#constructor", () => {

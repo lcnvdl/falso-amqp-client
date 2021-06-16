@@ -1,13 +1,12 @@
 const { expect } = require("chai");
-const Connection = require("../src/amqp/connection");
-const socketStub = require("./Stubs/socket.stub");
+const ProtocolV1 = require("../src/protocols/protocol-v1");
 
-/** @type {Connection} */
+/** @type {ProtocolV1} */
 let instance = null;
 
-describe("Connection", () => {
+describe("ProtocolV1", () => {
     beforeEach(() => {
-        instance = new Connection(socketStub);
+        instance = new ProtocolV1();
     });
 
     describe("#constructor", () => {
