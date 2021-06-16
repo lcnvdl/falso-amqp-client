@@ -138,10 +138,12 @@ class Channel {
         this._history.clear();
 
         if (history.prefetch !== null) {
+            console.log("Recover: prefetch", history.prefetch);
             await this.prefetch(history.prefetch);
         }
 
         for (let i = 0; i < history.exchangeAssertions.length; i++) {
+            console.log("Recover: assert exchange", history.exchangeAssertions[i]);
             await this.assertExchange(
                 history.exchangeAssertions[i].name,
                 history.exchangeAssertions[i].type,
@@ -149,12 +151,14 @@ class Channel {
         }
 
         for (let i = 0; i < history.queueAssertions.length; i++) {
+            console.log("Recover: assert queue", history.queueAssertions[i]);
             await this.assertQueue(
                 history.queueAssertions[i].name,
                 history.queueAssertions[i].settings);
         }
 
         for (let i = 0; i < history.bindings.length; i++) {
+            console.log("Recover: bind", history.bindings[i]);
             await this.bindQueue(
                 history.bindings[i].queueName,
                 history.bindings[i].exchangeName,
@@ -162,6 +166,7 @@ class Channel {
         }
 
         for (let i = 0; i < history.consuming.length; i++) {
+            console.log("Recover: consume", history.consuming[i]);
             await this.consume(
                 history.consuming[i].queueName,
                 history.consuming[i].callback,
