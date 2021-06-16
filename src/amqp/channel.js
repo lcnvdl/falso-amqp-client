@@ -79,7 +79,13 @@ class Channel {
         }
 
         settings = settings || {};
+
         const { data: status } = await this.communication.sendAndWait("assert-queue", { name, settings });
+
+        if (name === "" && (!status.queue || status.queue === "")) {
+            throw new Error("Unknown queue name.");
+        }
+
         this._history.queueAssertions.push({ name: status.queue, settings });
         return status;
     }
